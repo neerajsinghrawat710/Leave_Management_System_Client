@@ -41,7 +41,6 @@ export default function Login() {
 
         if (loginData?.meta?.requestStatus == "fulfilled") {
             localStorage.setItem("token", JSON.stringify(loginData?.payload?.token))
-            setSnack(true)
             navigate('/');
         }
         setSnack(true)
@@ -88,7 +87,7 @@ export default function Login() {
                 </Card>
             </Box>
 
-            <SnackBarUI state={snack} setState={setSnack} status={status} message={message} />
+            {snack && <SnackBarUI state={snack} setState={setSnack} status={status} message={message} />}
         </>
     )
 }

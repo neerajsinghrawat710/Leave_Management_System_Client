@@ -31,6 +31,8 @@ export default function ApplyLeave({ state, setState }) {
 
     const getEmployee = useSelector(state => state.getEmployee)
     const { data: empData } = getEmployee
+    const applyLeaved = useSelector(state => state.applyLeaved)
+    const { error: leaveErr, message: leaveMsg } = applyLeaved
 
     const dispatch = useDispatch()
     const [snack, setSnack] = useState(false)
@@ -39,7 +41,7 @@ export default function ApplyLeave({ state, setState }) {
     const [empID, setEmpID] = useState('')
 
     // fn
-    const handleCategory = async (data) => {
+    const handleApplyLeave = async (data) => {
 
         if (!date?.start) {
             return setError('startDateError', { type: 'custom', message: 'Start date can not be empty' });
@@ -55,12 +57,13 @@ export default function ApplyLeave({ state, setState }) {
             leave_start_date: date?.start,
             leave_end_date: date?.end
         }))
+
         if (applyLeaved?.meta?.requestStatus == "fulfilled") {
             dispatch(getLeaveAction())
+            setState(false)
+            reset()
         }
         setSnack(true)
-        setState(false)
-        reset()
     }
 
     const handleEmpDetail = async (event, value) => {
@@ -86,7 +89,7 @@ export default function ApplyLeave({ state, setState }) {
                 <Box className='modal_box'>
                     <Card sx={{ width: 500, p: 5 }}>
                         <Typography variant='h5' sx={{ mb: 5 }} align='center'>Leave Application</Typography>
-                        <form onSubmit={handleSubmit(handleCategory)}>
+                        <form onSubmit={handleSubmit(handleApplyLeave)}>
                             <Stack spacing={3}>
                                 <Autocomplete disablePortal options={empData} getOptionLabel={empData => empData?.user_name}
                                     onChange={handleEmpDetail}
@@ -107,7 +110,7 @@ export default function ApplyLeave({ state, setState }) {
                                         <DatePicker
                                             label="Start Date"
                                             value={date?.start}
-                                            onChange={(value) => setDate({ ...date, start: value })}
+                                            onChange={(value) => setDate({ ...date, start: value, end: moment(value).add('d', 1) })}
                                             renderInput={(params) => <TextField {...params}
                                                 helperText={errors?.startDateError?.message}
                                                 error={errors?.startDateError?.message} />}
@@ -123,7 +126,7 @@ export default function ApplyLeave({ state, setState }) {
                                                 helperText={errors?.endDateError?.message}
                                                 error={errors?.endDateError?.message}
                                             />}
-                                            minDate={moment(date?.start).add('day', 1)}
+                                            minDate={moment(date?.start).add('d', 1)}
 
                                         />
                                     </Stack>
@@ -137,7 +140,7 @@ export default function ApplyLeave({ state, setState }) {
                     </Card>
                 </Box>
             </Modal>
-            <SnackBarUI state={snack} setState={setSnack} />
+            {snack && <SnackBarUI state={snack} setState={setSnack} message={leaveMsg} />}
         </>
     )
 }

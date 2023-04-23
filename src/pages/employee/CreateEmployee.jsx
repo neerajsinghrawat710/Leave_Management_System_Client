@@ -23,7 +23,11 @@ const catSchema = yup.object({
 export default function CreateEmployee({ state, setState }) {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(catSchema) });
 
+    const createEmployee = useSelector(state => state.createEmployee)
+    const { status, message } = createEmployee
+
     const dispatch = useDispatch()
+
 
     const [snack, setSnack] = useState(false)
 
@@ -32,10 +36,10 @@ export default function CreateEmployee({ state, setState }) {
         const createEmp = await dispatch(createEmployeeAction(data))
         if (createEmp?.meta?.requestStatus == "fulfilled") {
             dispatch(getEmployeeAction())
+            setState(false)
+            reset()
         }
         setSnack(true)
-        setState(false)
-        reset()
     }
 
     const handleClose = function () {
@@ -71,7 +75,7 @@ export default function CreateEmployee({ state, setState }) {
                     </Card>
                 </Box>
             </Modal>
-            <SnackBarUI state={snack} setState={setSnack} />
+            {snack && <SnackBarUI state={snack} setState={setSnack} status={status} message={message} />}
         </>
     )
 }
