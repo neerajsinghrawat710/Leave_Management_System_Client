@@ -1,0 +1,20 @@
+@import "../comman/Veriables.module.scss";
+
+
+@mixin body {
+    transition-duration: .2s;
+    position: absolute;
+    top: 15%;
+}
+
+.bodyCollaps {
+    @include body;
+    left: 4%;
+    width: 96%;
+}
+
+.bodyexpend {
+    @include body;
+    left: 20%;
+    width: 80%;
+}

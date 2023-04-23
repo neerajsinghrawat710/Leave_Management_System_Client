@@ -1,0 +1,20 @@
+// modal styling 
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    padding: 20px
+}
+
+// icon button color
+.info_icon {
+    background-color: #0A7E6E !important;
+    color: #fff !important;
+}
+
+.error_icon {
+    background-color: #D32F2F !important;
+    color: #fff !important;
+}

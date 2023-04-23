@@ -1,0 +1,34 @@
+@import '../comman/Veriables.module.scss';
+
+
+.notfound {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $background-color-red;
+    border-radius: 0 500px 500px 0;
+
+    >h1 {
+        color: $color-white;
+        font-size: 5vw;
+        font-family: cursive;
+    }
+
+    >h2 {
+        color: $color-white;
+        font-size: 4vw;
+        font-family: jokerman;
+    }
+
+    >.link {
+        text-decoration: none;
+        font-size: 2vw;
+        margin-top: 2rem;
+        color: $color-white;
+        font-family: 'Courier New', Courier, monospace;
+    }
+}

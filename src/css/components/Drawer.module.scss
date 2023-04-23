@@ -1,0 +1,61 @@
+@import '../comman/Veriables.module.scss';
+
+
+@mixin drawerMixin {
+    background-color: #fff;
+    height: 100vh;
+    overflow-y: scroll;
+    position: fixed;
+    z-index: 1;
+    transition-duration: .2s;
+    padding-bottom: 20px;
+
+    .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 15%;
+
+        & img {
+            width: auto;
+        }
+    }
+
+    .actvie_link {
+        color: #000000;
+
+        .active_icon {
+            color: #1876D1;
+        }
+    }
+
+    .non_actvie_link {
+        color: #8E9BB9;
+    }
+}
+
+.drawerOpen {
+    @include drawerMixin;
+    width: 20%;
+
+    .logo_img {
+        cursor: pointer;
+        width: 30% !important;
+        height: auto;
+    }
+
+}
+
+
+
+.drawerClose {
+    @include drawerMixin;
+    width: 4%;
+
+    .logo_img {
+        cursor: pointer;
+        width: 80% !important;
+        height: auto;
+    }
+}
